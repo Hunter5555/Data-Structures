@@ -10,6 +10,8 @@ This part of the project comprises two days:
    on the BSTNode class.
 """
 from collections import deque
+from bst_queue import Queue
+from bst_stack import Stack
 
 class BSTNode:
     def __init__(self, value):
@@ -116,7 +118,7 @@ class BSTNode:
     # Print all the values in order from low to high
     # Hint:  Use a recursive, depth first traversal
     def in_order_print(self, node):
-            if node:
+            if node is not None:
                 self.in_order_print(node.left)
                 print(node.value)
                 self.in_order_print(node.right)
@@ -152,12 +154,34 @@ class BSTNode:
     # Print the value of every node, starting with the given node,
     # in an iterative breadth first traversal
     def bft_print(self, node):
-        pass
+        queue = Queue()
+        # add the root node
+        queue.enqueue(node)
+        # loop so long as the stack still has elements
+        while queue.size > 0:
+            current = queue.dequeue()
+            if current is not None:
+                print(current.value)
+            if current.left:
+                queue.enqueue(current.left)
+            if current.right:
+                queue.enqueue(current.right)
 
     # Print the value of every node, starting with the given node,
     # in an iterative depth first traversal
     def dft_print(self, node):
-        pass
+        stack = Stack()
+        # add the root node
+        stack.push(self)
+        # loop so long as the stack still has elements
+        while len(stack) > 0:
+            current = stack.pop()
+            if current is not None:
+                print(current.value)
+            if current.right:
+                stack.push(current.right)
+            if current.left:
+                stack.push(current.left)
 
     # Stretch Goals -------------------------
     # Note: Research may be required
